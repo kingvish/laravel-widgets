@@ -219,4 +219,37 @@ class WidgetGroup
     {
         $this->position = 100;
     }
+    
+    /**
+	 * Replace a widget to the group.
+	 */
+	public function replaceWidget()
+	{
+		$this->replaceWidgetWithType('sync', func_get_args());
+	}
+
+	/**
+	 * Replace an async widget to the group.
+	 */
+	public function replaceAsyncWidget()
+	{
+		$this->replaceWidgetWithType('async', func_get_args());
+	}
+    
+    /**
+	 * Replace a widget with a given type to the array.
+	 *
+	 * @param string $type
+	 * @param array  $arguments
+	 */
+	protected function replaceWidgetWithType($type, array $arguments = [])
+	{
+		if (isset($this->widgets[$this->position])) {
+
+            $this->count -= count($this->widgets[$this->position]);
+			unset($this->widgets[$this->position]); 
+		}
+        
+		$this->addWidgetWithType($type,$arguments);
+	}
 }
